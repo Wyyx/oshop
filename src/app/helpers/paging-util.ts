@@ -1,12 +1,19 @@
 export class PageUtil {
 	private page: Page
+	private size: number
+	source: any[]
 
-	getPage(pageNumber: number, size: number, source: any[]) {
+	constructor(size: number, source: any[]) {
+		this.size = size
+		this.source = source
+	}
+
+	getPage(pageNumber: number) {
 		this.page = new Page()
 
 		// set page
-		this.page.source = source
-		this.page.size = size
+		this.page.source = this.source
+		this.page.size = this.size
 		this.page.totalPages =
 			Math.floor(this.page.source.length / this.page.size) +
 			(this.page.source.length % this.page.size == 0 ? 0 : 1)
@@ -17,10 +24,12 @@ export class PageUtil {
 		this.page.startIndex = (this.page.currentPage - 1) * this.page.size
 		this.page.endIndex =
 			this.page.currentPage < this.page.totalPages
-				? (this.page.currentPage - 1) * this.page.size + this.page.size - 1
-				: (this.page.currentPage - 1) * this.page.size +
-					this.page.source.length % this.page.size -
-					1
+				? this.page.startIndex + this.page.size - 1
+				: this.page.totalElements % this.page.size == 0
+					? this.page.totalElements - 1
+					: this.page.startIndex +
+						this.page.totalElements -
+						(this.page.currentPage - 1) * this.page.size
 		this.page.content = this.page.source.slice(this.page.startIndex, this.page.endIndex + 1)
 		this.page.currentPageElements = this.page.content.length
 
@@ -31,7 +40,7 @@ export class PageUtil {
 	previousPage() {
 		if (this.page.currentPage > 1) {
 			this.page.currentPage--
-			this.page = this.getPage(this.page.currentPage, this.page.size, this.page.source)
+			this.page = this.getPage(this.page.currentPage)
 		}
 
 		return this.page
@@ -40,7 +49,7 @@ export class PageUtil {
 	nextPage() {
 		if (this.page.currentPage < this.page.totalPages) {
 			this.page.currentPage++
-			this.page = this.getPage(this.page.currentPage, this.page.size, this.page.source)
+			this.page = this.getPage(this.page.currentPage)
 		}
 
 		return this.page

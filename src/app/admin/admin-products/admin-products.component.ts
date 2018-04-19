@@ -23,7 +23,6 @@ export class AdminProductsComponent implements OnDestroy {
 	page: Page
 
 	constructor(private router: Router, private productService: ProductService) {
-		this.pageUtil = new PageUtil()
 		this.getProducts()
 	}
 
@@ -40,7 +39,10 @@ export class AdminProductsComponent implements OnDestroy {
 			this.products = products
 			this.filteredProducts = products
 
-			this.page = this.pageUtil.getPage(1, 5, this.filteredProducts)
+			this.pageUtil = new PageUtil(5, this.filteredProducts)
+			this.page = this.pageUtil.getPage(1)
+			console.log('startIndex:', this.page.startIndex)
+			console.log('endIndex:', this.page.endIndex)
 		})
 	}
 
@@ -49,7 +51,8 @@ export class AdminProductsComponent implements OnDestroy {
 			p.title.toLowerCase().includes(query.toLowerCase())
 		)
 
-		this.page = this.pageUtil.getPage(1, 5, this.filteredProducts)
+		this.pageUtil.source = this.filteredProducts
+		this.page = this.pageUtil.getPage(1)
 	}
 
 	previousPage() {
@@ -65,7 +68,7 @@ export class AdminProductsComponent implements OnDestroy {
 	}
 
 	getPage(pageNumber) {
-		this.page = this.pageUtil.getPage(pageNumber, 5, this.filteredProducts)
+		this.page = this.pageUtil.getPage(pageNumber)
 	}
 
 	ngOnDestroy(): void {
