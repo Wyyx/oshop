@@ -30,19 +30,19 @@
 <nav aria-label="Page navigation" *ngIf="page">
     <ul class="pagination justify-content-center">
         <li class="page-item" [ngClass]="page.isFirstPage && {'disabled': true }">
-            <a class="page-link" (click)="getPage(1)">First</a>
+            <a class="page-link" (click)="pageUtil.getPage(1)">First</a>
         </li>
         <li class="page-item" [ngClass]="page.isFirstPage && {'disabled': true }">
-            <a class="page-link" (click)="previousPage()">Previous</a>
+            <a class="page-link" (click)="pageUtil.previousPage()">Previous</a>
         </li>
-        <li *ngFor="let number of getPageNumbers(3)" class="page-item" [ngClass]="page.currentPage == number && {'active': true}">
-            <a class="page-link" (click)="getPage(number)">{{ number }}</a>
-        </li>
-        <li class="page-item" [ngClass]="page.isLastPage && {'disabled': true }">
-            <a class="page-link" (click)="nextPage()">Next</a>
+        <li *ngFor="let number of pageUtil.getPaginations(5)" class="page-item" [ngClass]="page.currentPage == number && {'active': true}">
+            <a class="page-link" (click)="pageUtil.getPage(number)">{{ number }}</a>
         </li>
         <li class="page-item" [ngClass]="page.isLastPage && {'disabled': true }">
-            <a class="page-link" (click)="getPage(page.totalPages)">Last</a>
+            <a class="page-link" (click)="pageUtil.nextPage()">Next</a>
+        </li>
+        <li class="page-item" [ngClass]="page.isLastPage && {'disabled': true }">
+            <a class="page-link" (click)="pageUtil.getPage(page.totalPages)">Last</a>
         </li>
     </ul>
 </nav>

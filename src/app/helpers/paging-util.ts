@@ -1,19 +1,15 @@
 export class PageUtil {
 	private page: Page
-	private size: number
-	source: any[]
+	private source: any[]
 
 	constructor(size: number, source: any[]) {
-		this.size = size
 		this.source = source
+		this.page = new Page(size)
 	}
 
 	getPage(pageNumber: number) {
-		this.page = new Page()
-
 		// set page
 		this.page.source = this.source
-		this.page.size = this.size
 		this.page.totalPages =
 			Math.floor(this.page.source.length / this.page.size) +
 			(this.page.source.length % this.page.size == 0 ? 0 : 1)
@@ -37,6 +33,10 @@ export class PageUtil {
 		return this.page
 	}
 
+	setSource(source: any[]) {
+		this.source = source
+	}
+
 	previousPage() {
 		if (this.page.currentPage > 1) {
 			this.page.currentPage--
@@ -55,7 +55,7 @@ export class PageUtil {
 		return this.page
 	}
 
-	getPageNumbers(pageNumbersSize: number) {
+	getPaginations(pageNumbersSize: number) {
 		let firstPageNumber =
 			Math.floor((this.page.currentPage - 1) / pageNumbersSize) * pageNumbersSize + 1
 		console.log('currentPage: ', this.page.currentPage)
@@ -73,6 +73,10 @@ export class PageUtil {
 }
 
 export class Page {
+	constructor(size: number) {
+		this.size = size
+	}
+
 	source: any[]
 	size: number
 	totalPages: number

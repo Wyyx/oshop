@@ -41,34 +41,21 @@ export class AdminProductsComponent implements OnDestroy {
 
 			this.pageUtil = new PageUtil(5, this.filteredProducts)
 			this.page = this.pageUtil.getPage(1)
+
 			console.log('startIndex:', this.page.startIndex)
 			console.log('endIndex:', this.page.endIndex)
 		})
 	}
 
 	filter(query: string) {
+		// filter function return a new array
 		this.filteredProducts = this.products.filter(p =>
 			p.title.toLowerCase().includes(query.toLowerCase())
 		)
 
-		this.pageUtil.source = this.filteredProducts
+		// update page
+		this.pageUtil.setSource(this.filteredProducts)
 		this.page = this.pageUtil.getPage(1)
-	}
-
-	previousPage() {
-		this.page = this.pageUtil.previousPage()
-	}
-
-	nextPage() {
-		this.page = this.pageUtil.nextPage()
-	}
-
-	getPageNumbers(pageNumbersSize: number) {
-		return this.pageUtil.getPageNumbers(pageNumbersSize)
-	}
-
-	getPage(pageNumber) {
-		this.page = this.pageUtil.getPage(pageNumber)
 	}
 
 	ngOnDestroy(): void {
