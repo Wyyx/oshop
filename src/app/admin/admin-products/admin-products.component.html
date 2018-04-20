@@ -10,9 +10,27 @@
 <table class="table" *ngIf="page">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th></th>
+            <th class="my-clickable" (click)="sort('title')" (mouseover)="mouseoverThead()" (mouseout)="mouseoutThead()">Title
+                <div *ngIf="showSortIconHover" class="d-flex flex-column float-right">
+                    <span class="mb-1"><i class="fas fa-angle-up"></i></span>
+                    <span class="mt-1"><i class="fas fa-angle-down"></i></span>
+                </div>
+                <span *ngIf="showSortIconClick && sortProperty == 'title'">
+                    <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
+                    <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
+                </span>
+            </th>
+            <th class="my-clickable" (click)="sort('price')" (mouseover)="mouseoverThead()" (mouseout)="mouseoutThead()">Price
+                <div *ngIf="showSortIconHover" class="d-flex flex-column float-right">
+                    <span class="mb-1"><i class="fas fa-angle-up"></i></span>
+                    <span class="mt-1"><i class="fas fa-angle-down"></i></span>
+                </div>
+                <span *ngIf="showSortIconClick && sortProperty == 'price'">
+                    <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
+                    <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
+                </span>
+            </th>
+            <th>Operation</th>
         </tr>
     </thead>
     <tbody>

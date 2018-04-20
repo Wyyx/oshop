@@ -58,7 +58,6 @@ export class PageUtil {
 	getPaginations(pageNumbersSize: number) {
 		let firstPageNumber =
 			Math.floor((this.page.currentPage - 1) / pageNumbersSize) * pageNumbersSize + 1
-		console.log('currentPage: ', this.page.currentPage)
 
 		let pageNumbers: number[] = new Array()
 		for (let i = 0; i < pageNumbersSize; i++) {

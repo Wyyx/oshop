@@ -9,6 +9,7 @@ import { subscribeOn } from 'rxjs/operator/subscribeOn'
 import { Subscription } from 'rxjs'
 
 import { PageUtil, Page } from '../../helpers/paging-util'
+import * as _ from 'lodash'
 
 @Component({
 	selector: 'app-admin-products',
@@ -21,6 +22,10 @@ export class AdminProductsComponent implements OnDestroy {
 	subscription: Subscription
 	pageUtil: PageUtil
 	page: Page
+	toggleDirection: boolean
+	showSortIconHover: boolean = false
+	showSortIconClick: boolean = false
+	sortProperty: string
 
 	constructor(private router: Router, private productService: ProductService) {
 		this.getProducts()
@@ -41,9 +46,6 @@ export class AdminProductsComponent implements OnDestroy {
 
 			this.pageUtil = new PageUtil(5, this.filteredProducts)
 			this.page = this.pageUtil.getPage(1)
-
-			console.log('startIndex:', this.page.startIndex)
-			console.log('endIndex:', this.page.endIndex)
 		})
 	}
 
@@ -56,6 +58,35 @@ export class AdminProductsComponent implements OnDestroy {
 		// update page
 		this.pageUtil.setSource(this.filteredProducts)
 		this.page = this.pageUtil.getPage(1)
+	}
+
+	sort(property: string) {
+		this.sortProperty = property
+		this.showSortIconHover = false
+		this.showSortIconClick = true
+
+		this.toggleDirection = !this.toggleDirection
+		if (this.toggleDirection) {
+			this.filteredProducts = _.orderBy(this.filteredProducts, property, 'asc')
+		} else {
+			this.filteredProducts = _.orderBy(this.filteredProducts, property, 'desc')
+		}
+
+		// update page
+		this.pageUtil.setSource(this.filteredProducts)
+		this.page = this.pageUtil.getPage(1)
+	}
+
+	mouseoverThead() {
+		if (this.showSortIconClick == false) {
+			this.showSortIconHover = true
+		}
+	}
+
+	mouseoutThead() {
+		if (this.showSortIconClick == false) {
+			this.showSortIconHover = false
+		}
 	}
 
 	ngOnDestroy(): void {
