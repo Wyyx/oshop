@@ -27,6 +27,8 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service'
 import { ProductFormComponent } from './admin/product-form/product-form.component'
 import { CategoryService } from './services/category.service'
 import { ProductService } from './services/product.service'
+import { ProductFilterComponent } from './product-filter/product-filter.component'
+import { ProductCardComponent } from './product-card/product-card.component'
 
 @NgModule({
 	declarations: [
@@ -42,7 +44,9 @@ import { ProductService } from './services/product.service'
 		AdminProductsComponent,
 		LoginComponent,
 		NoAccessComponent,
-		ProductFormComponent
+		ProductFormComponent,
+		ProductFilterComponent,
+		ProductCardComponent
 	],
 	imports: [
 		BrowserModule,
@@ -51,7 +55,7 @@ import { ProductService } from './services/product.service'
 		CustomFormsModule,
 		HttpModule,
 		RouterModule.forRoot([
-			{ path: '', component: HomeComponent, canActivate: [ AuthGuardService ] },
+			{ path: '', component: ProductsComponent },
 			{ path: 'login', component: LoginComponent },
 			{ path: 'products', component: ProductsComponent, canActivate: [ AuthGuardService ] },
 			{

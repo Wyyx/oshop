@@ -15,7 +15,7 @@
                     <span class="mb-1"><i class="fas fa-angle-up"></i></span>
                     <span class="mt-1"><i class="fas fa-angle-down"></i></span>
                 </div>
-                <span *ngIf="showSortIconClick && sortProperty == 'title'">
+                <span *ngIf="showSortIconClick && sortProperty === 'title'">
                     <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
                     <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
                 </span>
@@ -25,7 +25,7 @@
                     <span class="mb-1"><i class="fas fa-angle-up"></i></span>
                     <span class="mt-1"><i class="fas fa-angle-down"></i></span>
                 </div>
-                <span *ngIf="showSortIconClick && sortProperty == 'price'">
+                <span *ngIf="showSortIconClick && sortProperty === 'price'">
                     <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
                     <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
                 </span>

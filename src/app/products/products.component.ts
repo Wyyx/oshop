@@ -1,15 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs/Observable'
+import { ProductService } from '../services/product.service'
+import { Product } from '../models/product'
+import { ActivatedRoute } from '@angular/router'
+import { Category } from '../models/category'
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+	selector: 'app-products',
+	templateUrl: './products.component.html',
+	styleUrls: [ './products.component.css' ]
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
+	products: Product[]
+	filteredProducts: Product[]
+	filterCategory: string
 
-  constructor() { }
+	constructor(private route: ActivatedRoute, private productService: ProductService) {
+		productService.getAll().subscribe(products => {
+			this.products = products
 
-  ngOnInit() {
-  }
+			this.filter()
+		})
+	}
 
+	filter() {
+		this.route.queryParamMap.subscribe(params => {
+			this.filterCategory = params.get('category')
+
+			this.filteredProducts = this.filterCategory
+				? this.products.filter(
+						p => p.category.name.toLowerCase() === this.filterCategory.toLowerCase()
+					)
+				: this.products
+		})
+	}
 }

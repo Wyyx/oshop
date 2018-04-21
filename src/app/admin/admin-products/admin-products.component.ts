@@ -28,20 +28,24 @@ export class AdminProductsComponent implements OnDestroy {
 	sortProperty: string
 
 	constructor(private router: Router, private productService: ProductService) {
+		// // load products data to database, only need once
+		// productService.load()
+
 		this.getProducts()
 	}
 
 	deleteProduct(id) {
 		if (confirm('Are you sure to delete the product?')) {
-			this.productService.deleteProduct(id).subscribe(() => {
+			this.productService.delete(id).subscribe(() => {
 				this.getProducts()
 			})
 		}
 	}
 
 	getProducts() {
-		this.subscription = this.productService.getProducts().subscribe(products => {
+		this.subscription = this.productService.getAll().subscribe(products => {
 			this.products = products
+
 			this.filteredProducts = products
 
 			this.pageUtil = new PageUtil(5, this.filteredProducts)
@@ -78,13 +82,13 @@ export class AdminProductsComponent implements OnDestroy {
 	}
 
 	mouseoverThead() {
-		if (this.showSortIconClick == false) {
+		if (this.showSortIconClick === false) {
 			this.showSortIconHover = true
 		}
 	}
 
 	mouseoutThead() {
-		if (this.showSortIconClick == false) {
+		if (this.showSortIconClick === false) {
 			this.showSortIconHover = false
 		}
 	}

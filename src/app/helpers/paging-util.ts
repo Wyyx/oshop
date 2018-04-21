@@ -12,16 +12,16 @@ export class PageUtil {
 		this.page.source = this.source
 		this.page.totalPages =
 			Math.floor(this.page.source.length / this.page.size) +
-			(this.page.source.length % this.page.size == 0 ? 0 : 1)
+			(this.page.source.length % this.page.size === 0 ? 0 : 1)
 		this.page.currentPage = pageNumber
-		this.page.isFirstPage = this.page.currentPage == 1 ? true : false
-		this.page.isLastPage = this.page.currentPage == this.page.totalPages ? true : false
+		this.page.isFirstPage = this.page.currentPage === 1 ? true : false
+		this.page.isLastPage = this.page.currentPage === this.page.totalPages ? true : false
 		this.page.totalElements = this.page.source.length
 		this.page.startIndex = (this.page.currentPage - 1) * this.page.size
 		this.page.endIndex =
 			this.page.currentPage < this.page.totalPages
 				? this.page.startIndex + this.page.size - 1
-				: this.page.totalElements % this.page.size == 0
+				: this.page.totalElements % this.page.size === 0
 					? this.page.totalElements - 1
 					: this.page.startIndex +
 						this.page.totalElements -

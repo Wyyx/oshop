@@ -1,6 +1,8 @@
-export interface Product {
+import { Category } from './category'
+
+export class Product {
 	title: string
 	price: number
-	category: string
+	category: Category
 	imageUrl: string
 }

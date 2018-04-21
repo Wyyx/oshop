@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="product.category">
     <div class="col-md-6">
         <!-- feedback message for saving new product -->
         <div *ngIf="showMessage">
@@ -11,6 +11,7 @@
         </div>
         <!-- create product form -->
         <form #f="ngForm" (ngSubmit)="save(f.value)">
+            <input [(ngModel)]="product._id" type="hidden" name="_id">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input required #title="ngModel" [(ngModel)]="product.title" type="text" name="title" class="form-control">
@@ -32,8 +33,8 @@
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <select required [(ngModel)]="product.category" #category="ngModel" type="text" name="category" class="form-control">
-                    <option value="{{c}}" *ngFor="let c of categories | async">{{c}}</option>
+                <select required [(ngModel)]="product.category.id" #category="ngModel" type="text" name="category" class="form-control">
+                    <option value="{{ c.id }}" *ngFor="let c of categories">{{ c.name }}</option>
                 </select>
                 <div class="alert alert-danger" *ngIf="category.touched && category.invalid">Need a category</div>
             </div>
@@ -51,13 +52,6 @@
         </form>
     </div>
     <div class="col-md-6">
-        <div *ngIf="product.title" class="card" style="width: 18rem;">
-            <img class="card-img-top" [src]="product.imageUrl" *ngIf="product.imageUrl && imageUrl.valid">
-            <div class="card-body">
-                <h5 class="card-title">{{ title.value}}</h5>
-                <p class="card-text">{{ price.value | currency:'USD':'symbol'}}
-                </p>
-            </div>
-        </div>
+        <app-product-card *ngIf="product.title" [product]="product" [showActions]="false"></app-product-card>
     </div>
 </div>

@@ -26,7 +26,7 @@ module.exports = app => {
 		const product = req.body
 		console.log('======== req product:', product)
 
-		Product.update({ _id: product.id }, { $set: product }, function(err, product) {
+		Product.update({ _id: product._id }, { $set: product }, function(err, product) {
 			if (err) {
 				console.log(err)
 				res.status(200).send(messages.FAILURE)
@@ -35,7 +35,7 @@ module.exports = app => {
 		})
 	})
 
-	app.get('/api/products', authenticate, (req, res) => {
+	app.get('/api/products', (req, res) => {
 		Product.find().then(
 			products => {
 				res.status(200).send(products)

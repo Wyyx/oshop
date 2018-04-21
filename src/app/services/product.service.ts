@@ -18,19 +18,19 @@ export class ProductService {
 			.map(response => response.json())
 	}
 
-	getProducts() {
+	getAll() {
 		return this.http.get('/api/products').map(response => response.json())
 	}
 
-	getProduct(id) {
+	get(id) {
 		return this.http.get('/api/products/' + id).map(response => response.json())
 	}
 
-	deleteProduct(id) {
+	delete(id) {
 		return this.http.delete('/api/products/' + id).map(response => response.json())
 	}
 
-	loadProducts() {
+	load() {
 		loadProducts(this.http)
 	}
 }
