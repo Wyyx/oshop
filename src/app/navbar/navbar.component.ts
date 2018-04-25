@@ -11,10 +11,4 @@ import { Observable } from 'rxjs'
 })
 export class NavbarComponent {
 	constructor(private authService: AuthService, private cartService: ShoppingCartService) {}
-
-	cart: ShoppingCart
-
-	get totalQuantity() {
-		return this.cartService.cart.getTotalQuantity()
-	}
 }

@@ -18,14 +18,6 @@ export class ProductSelectorComponent implements OnInit {
 		this.localQuantity = this.cartService.cart.getQuantity(this.product)
 	}
 
-	get quantity() {
-		return this.cartService.cart.getQuantity(this.product)
-	}
-
-	get totalQuantity() {
-		return this.cartService.cart.getTotalQuantity()
-	}
-
 	plusQuantity() {
 		this.localQuantity++
 		this.cartService.addToCart(this.product, this.localQuantity)

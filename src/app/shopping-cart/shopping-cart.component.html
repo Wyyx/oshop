@@ -1,6 +1,6 @@
-<div *ngIf="cartService.cart">
+<div *ngIf="cartService.cart as c">
     <h1>Shopping Cart</h1>
-    <p>You have {{ totalQuantity || 0 }} items in your shopping cart</p>
+    <p>You have {{ c.getTotalQuantity() || 0 }} items in your shopping cart</p>
     <table class="table">
         <thead>
             <tr>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of cartService.cart.items">
+            <tr *ngFor="let item of c.items">
                 <td scope="row">
                     <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="rounded-circle thumbnail"></div>
                 </td>
@@ -23,9 +23,9 @@
             </tr>
         </tbody>
         <tfoot>
-            <th><button *ngIf="totalQuantity > 0" (click)="clearCart()" class="btn btn-danger">Clear Shopping Cart</button></th>
+            <th><button *ngIf="c.getTotalQuantity() > 0" (click)="clearCart()" class="btn btn-danger">Clear Shopping Cart</button></th>
             <th colspan="2"></th>
-            <th class="text-right">Total: <span class="pl-4">{{ totalPrice | currency:'USD':'symbol' }}</span> </th>
+            <th class="text-right">Total: <span class="pl-4">{{ c.getTotalPrice() | currency:'USD':'symbol' }}</span> </th>
         </tfoot>
     </table>
 </div>

@@ -7,18 +7,8 @@ import { ShoppingCart } from '../models/shopping-cart'
 	templateUrl: './shopping-cart.component.html',
 	styleUrls: [ './shopping-cart.component.css' ]
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent {
 	constructor(private cartService: ShoppingCartService) {}
-
-	ngOnInit() {}
-
-	get totalPrice() {
-		return this.cartService.cart.getTotalPrice()
-	}
-
-	get totalQuantity() {
-		return this.cartService.cart.getTotalQuantity()
-	}
 
 	clearCart() {
 		if (confirm('Are you sure to clear the cart?')) {
