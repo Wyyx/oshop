@@ -12,22 +12,12 @@ export class ShoppingCartComponent implements OnInit {
 
 	ngOnInit() {}
 
-	get cart() {
-		if (this.cartService.cart) {
-			return this.cartService.cart
-		}
-	}
-
 	get totalPrice() {
-		if (this.cartService.cart) {
-			return this.cartService.cart.getTotalPrice()
-		}
+		return this.cartService.cart.getTotalPrice()
 	}
 
 	get totalQuantity() {
-		if (this.cartService.cart) {
-			return this.cartService.cart.getTotalQuantity()
-		}
+		return this.cartService.cart.getTotalQuantity()
 	}
 
 	clearCart() {

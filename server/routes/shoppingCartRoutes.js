@@ -26,7 +26,7 @@ module.exports = app => {
 				if (cart) {
 					return res.status(200).send(cart)
 				}
-				res.status(400).send()
+				res.status(404).send()
 			},
 			err => {
 				res.status(500).send()

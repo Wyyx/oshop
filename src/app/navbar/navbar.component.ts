@@ -12,9 +12,9 @@ import { Observable } from 'rxjs'
 export class NavbarComponent {
 	constructor(private authService: AuthService, private cartService: ShoppingCartService) {}
 
+	cart: ShoppingCart
+
 	get totalQuantity() {
-		if (this.cartService.cart) {
-			return this.cartService.cart.getTotalQuantity()
-		}
+		return this.cartService.cart.getTotalQuantity()
 	}
 }

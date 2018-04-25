@@ -18,7 +18,7 @@ export class ShoppingCart {
 	}
 
 	getTotalQuantity() {
-		if (this.items) {
+		if (this.items.length > 0) {
 			return this.items
 				.map(item => item.quantity)
 				.reduce((accumulator, currentValue) => accumulator + currentValue)
@@ -26,7 +26,7 @@ export class ShoppingCart {
 	}
 
 	getTotalPrice() {
-		if (this.items) {
+		if (this.items.length > 0) {
 			return this.items
 				.map(item => item.quantity * item.product.price)
 				.reduce((accumulator, currentValue) => accumulator + currentValue)

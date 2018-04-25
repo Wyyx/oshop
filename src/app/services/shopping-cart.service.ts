@@ -13,6 +13,10 @@ export class ShoppingCartService {
 	constructor(private http: Http) {
 		// localStorage.setItem('cartId', '5add6e9222f53230e8866774')
 		this.getCart().take(1).subscribe(cart => {
+			if (!cart) {
+				return localStorage.removeItem('cartId')
+			}
+
 			this.cart = Object.assign(new ShoppingCart(), cart)
 		})
 	}
@@ -68,7 +72,16 @@ export class ShoppingCartService {
 	}
 
 	clearShoppingCart() {
-		this.http.delete('/api/shopping_carts/delete/' + this.cart._id)
+		this.http.delete('/api/shopping_carts/delete/' + this.cart._id).subscribe()
+		localStorage.removeItem('cartId')
 		this.cart = null
+
+		// create new cart
+		this.getCart().take(1).subscribe(cart => {
+			this.cart = Object.assign(new ShoppingCart(), cart)
+
+			// save cartId to local storage
+			localStorage.setItem('cartId', cart._id)
+		})
 	}
 }

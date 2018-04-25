@@ -19,15 +19,11 @@ export class ProductSelectorComponent implements OnInit {
 	}
 
 	get quantity() {
-		if (this.cartService.cart) {
-			return this.cartService.cart.getQuantity(this.product)
-		}
+		return this.cartService.cart.getQuantity(this.product)
 	}
 
 	get totalQuantity() {
-		if (this.cartService.cart) {
-			return this.cartService.cart.getTotalQuantity()
-		}
+		return this.cartService.cart.getTotalQuantity()
 	}
 
 	plusQuantity() {
