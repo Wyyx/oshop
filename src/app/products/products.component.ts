@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service'
 import { Product } from '../models/product'
 import { ActivatedRoute } from '@angular/router'
 import { Category } from '../models/category'
+import { Subscription } from 'rxjs'
 
 @Component({
 	selector: 'app-products',
@@ -16,9 +17,8 @@ export class ProductsComponent {
 	filterCategory: string
 
 	constructor(private route: ActivatedRoute, private productService: ProductService) {
-		productService.getAll().subscribe(products => {
+		productService.getAll().take(1).subscribe(products => {
 			this.products = products
-
 			this.filter()
 		})
 	}

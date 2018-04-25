@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 require('./models/product')
+require('./models/shoppingCart')
 require('./database/mongodbConfig')
 
 const app = express()
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 require('./routes/categoryRoutes')(app)
 require('./routes/authRoutes')(app)
 require('./routes/productRoutes')(app)
+require('./routes/shoppingCartRoutes')(app)
 
 // start app
 const PORT = 5000

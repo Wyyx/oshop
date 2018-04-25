@@ -1,3 +1,29 @@
-<p>
-  shopping-cart works!
-</p>
+<h1>Shopping Cart</h1>
+<p>You have {{ totalQuantity }} item in your shopping cart</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Product</th>
+            <th></th>
+            <th class="text-center" style="width: 250px;">Quantity</th>
+            <th class="text-right">Price</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="cart">
+        <tr *ngFor="let item of cart.items">
+            <td scope="row">
+                <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="rounded-circle thumbnail"></div>
+            </td>
+            <td>{{ item.product.title }}</td>
+            <td>
+                <app-product-selector [product]="item.product"></app-product-selector>
+            </td>
+            <td class="text-right">{{ item.product.price | currency:'USD':'symbol' }}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+            <th><button (click)="clearCart()" class="btn btn-danger">Clear Shopping Cart</button></th>
+        <th colspan="2"></th>
+        <th class="text-right">Total: <span class="pl-4">{{ totalPrice | currency:'USD':'symbol' }}</span> </th>
+    </tfoot>
+</table>

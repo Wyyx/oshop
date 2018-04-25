@@ -16,7 +16,7 @@ import * as _ from 'lodash'
 	templateUrl: './admin-products.component.html',
 	styleUrls: [ './admin-products.component.css' ]
 })
-export class AdminProductsComponent implements OnDestroy {
+export class AdminProductsComponent implements OnInit {
 	products: Product[]
 	filteredProducts: Product[]
 	subscription: Subscription
@@ -27,12 +27,11 @@ export class AdminProductsComponent implements OnDestroy {
 	showSortIconClick: boolean = false
 	sortProperty: string
 
-	constructor(private router: Router, private productService: ProductService) {
-		// // load products data to database, only need once
-		// productService.load()
-
+	ngOnInit(): void {
 		this.getProducts()
 	}
+
+	constructor(private router: Router, private productService: ProductService) {}
 
 	deleteProduct(id) {
 		if (confirm('Are you sure to delete the product?')) {
@@ -43,7 +42,7 @@ export class AdminProductsComponent implements OnDestroy {
 	}
 
 	getProducts() {
-		this.subscription = this.productService.getAll().subscribe(products => {
+		this.subscription = this.productService.getAll().take(1).subscribe(products => {
 			this.products = products
 
 			this.filteredProducts = products
@@ -91,9 +90,5 @@ export class AdminProductsComponent implements OnDestroy {
 		if (this.showSortIconClick === false) {
 			this.showSortIconHover = false
 		}
-	}
-
-	ngOnDestroy(): void {
-		this.subscription.unsubscribe()
 	}
 }

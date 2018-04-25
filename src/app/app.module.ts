@@ -29,6 +29,9 @@ import { CategoryService } from './services/category.service'
 import { ProductService } from './services/product.service'
 import { ProductFilterComponent } from './product-filter/product-filter.component'
 import { ProductCardComponent } from './product-card/product-card.component'
+import { ShoppingCartService } from './services/shopping-cart.service'
+import { LabComponent } from './lab/lab.component';
+import { ProductSelectorComponent } from './product-selector/product-selector.component'
 
 @NgModule({
 	declarations: [
@@ -46,7 +49,9 @@ import { ProductCardComponent } from './product-card/product-card.component'
 		NoAccessComponent,
 		ProductFormComponent,
 		ProductFilterComponent,
-		ProductCardComponent
+		ProductCardComponent,
+		LabComponent,
+		ProductSelectorComponent
 	],
 	imports: [
 		BrowserModule,
@@ -60,8 +65,7 @@ import { ProductCardComponent } from './product-card/product-card.component'
 			{ path: 'products', component: ProductsComponent, canActivate: [ AuthGuardService ] },
 			{
 				path: 'shopping-cart',
-				component: ShoppingCartComponent,
-				canActivate: [ AuthGuardService ]
+				component: ShoppingCartComponent
 			},
 
 			{ path: 'my-orders', component: MyOrdersComponent, canActivate: [ AuthGuardService ] },
@@ -111,7 +115,8 @@ import { ProductCardComponent } from './product-card/product-card.component'
 			noJwtError: true
 		}),
 		CategoryService,
-		ProductService
+		ProductService,
+		ShoppingCartService
 
 		// // For creating a mock back-end. You don't need these in a real app.
 		// fakeBackendProvider,
