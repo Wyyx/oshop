@@ -1,3 +1,4 @@
+import { OrderService } from './services/order.service'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
@@ -30,8 +31,10 @@ import { ProductService } from './services/product.service'
 import { ProductFilterComponent } from './product-filter/product-filter.component'
 import { ProductCardComponent } from './product-card/product-card.component'
 import { ShoppingCartService } from './services/shopping-cart.service'
-import { LabComponent } from './lab/lab.component';
+import { LabComponent } from './lab/lab.component'
 import { ProductSelectorComponent } from './product-selector/product-selector.component'
+import { ShippingFormComponent } from './shipping-form/shipping-form.component'
+import { OrderSummaryComponent } from './order-summary/order-summary.component'
 
 @NgModule({
 	declarations: [
@@ -51,7 +54,9 @@ import { ProductSelectorComponent } from './product-selector/product-selector.co
 		ProductFilterComponent,
 		ProductCardComponent,
 		LabComponent,
-		ProductSelectorComponent
+		ProductSelectorComponent,
+		ShippingFormComponent,
+		OrderSummaryComponent
 	],
 	imports: [
 		BrowserModule,
@@ -116,7 +121,8 @@ import { ProductSelectorComponent } from './product-selector/product-selector.co
 		}),
 		CategoryService,
 		ProductService,
-		ShoppingCartService
+		ShoppingCartService,
+		OrderService
 
 		// // For creating a mock back-end. You don't need these in a real app.
 		// fakeBackendProvider,

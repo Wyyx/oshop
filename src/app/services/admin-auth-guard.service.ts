@@ -8,7 +8,7 @@ export class AdminAuthGuardService implements CanActivate {
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		console.log('in AdminAuthGuardService')
 
-		let user = this.authService.currentUser
+		let user = this.authService.user
 		if (user && user.admin) return true
 
 		this.router.navigate([ '/no-access' ])

@@ -34,6 +34,19 @@ module.exports = app => {
 		)
 	})
 
+	app.put('/api/shopping_carts', (req, res) => {
+		let cart = req.body
+		console.log('======== req shoppingCart:', cart)
+
+		ShoppingCart.update({ _id: cart._id }, { $set: cart }, function(err, cart) {
+			if (err) {
+				console.log(err)
+				return res.status(400).send()
+			}
+			res.status(200).send(cart)
+		})
+	})
+
 	app.delete('/api/shopping_carts/delete/:id', (req, res) => {
 		let id = req.params.id
 		console.log('======== delete shoppingCart')
@@ -45,19 +58,6 @@ module.exports = app => {
 			}
 
 			res.status(400).send()
-		})
-	})
-
-	app.put('/api/shopping_carts', (req, res) => {
-		let cart = req.body
-		console.log('======== req shoppingCart:', cart)
-
-		ShoppingCart.update({ _id: cart._id }, { $set: cart }, function(err, cart) {
-			if (err) {
-				console.log(err)
-				return res.status(400).send()
-			}
-			res.status(200).send(cart)
 		})
 	})
 }

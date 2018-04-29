@@ -3,7 +3,6 @@ import { Product } from './product'
 
 export class ShoppingCart {
 	_id: string
-	createdTime: number
 	items: ShoppingCartItem[]
 
 	getQuantity(product: Product) {

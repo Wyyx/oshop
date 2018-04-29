@@ -1,5 +1,5 @@
 const token =
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ild5eXgiLCJhZG1pbiI6dHJ1ZX0.Az8U4HBH7f4Xh25MMYyg58105ZVVXjEOAn1mZuH7wfo'
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiV3l5eCIsImFkbWluIjp0cnVlfQ.nJFq7fJwd8V1Gx42njn3vp-S5dGCvpJyYqkeqPVytPU'
 
 module.exports = app => {
 	app.post('/api/authenticate', (req, res) => {

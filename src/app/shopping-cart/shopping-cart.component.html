@@ -1,6 +1,8 @@
 <div *ngIf="cartService.cart as c">
     <h1>Shopping Cart</h1>
-    <p>You have {{ c.getTotalQuantity() || 0 }} items in your shopping cart</p>
+    <p>You have {{ c.getTotalQuantity() || 0 }} items in your shopping cart<button *ngIf="c.getTotalQuantity() > 0"
+            (click)="clearCart()" class="btn btn-outline-secondary ml-3">Clear Shopping Cart</button></p>
+
     <table class="table">
         <thead>
             <tr>
@@ -23,7 +25,7 @@
             </tr>
         </tbody>
         <tfoot>
-            <th><button *ngIf="c.getTotalQuantity() > 0" (click)="clearCart()" class="btn btn-danger">Clear Shopping Cart</button></th>
+            <th><button *ngIf="c.items.length > 0" (click)="checkOut()" class="btn btn-danger">Check Out</button></th>
             <th colspan="2"></th>
             <th class="text-right">Total: <span class="pl-4">{{ c.getTotalPrice() | currency:'USD':'symbol' }}</span> </th>
         </tfoot>

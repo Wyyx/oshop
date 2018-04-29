@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http'
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt'
 import 'rxjs/add/operator/map'
 import { Router } from '@angular/router'
+import { User } from './../models/user'
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
 		// return !isExpired
 	}
 
-	get currentUser() {
+	get user(): User {
 		let token = localStorage.getItem('token')
 
 		if (!token) return null
@@ -54,6 +55,6 @@ export class AuthService {
 	}
 
 	isAdmin() {
-		return this.currentUser ? this.currentUser.admin : false
+		return this.user ? this.user.admin : false
 	}
 }

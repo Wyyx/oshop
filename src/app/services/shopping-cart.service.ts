@@ -11,11 +11,9 @@ export class ShoppingCartService {
 	public cart: ShoppingCart
 
 	constructor(private http: Http) {
-		// localStorage.setItem('cartId', '5add6e9222f53230e8866774')
 		this.getCart().take(1).subscribe(cart => {
-			if (!cart) {
-				return localStorage.removeItem('cartId')
-			}
+			// save cartId to local storage
+			localStorage.setItem('cartId', cart._id)
 
 			this.cart = Object.assign(new ShoppingCart(), cart)
 		})

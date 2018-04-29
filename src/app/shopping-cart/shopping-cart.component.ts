@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { ShoppingCart } from '../models/shopping-cart'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-shopping-cart',
@@ -8,7 +9,11 @@ import { ShoppingCart } from '../models/shopping-cart'
 	styleUrls: [ './shopping-cart.component.css' ]
 })
 export class ShoppingCartComponent {
-	constructor(private cartService: ShoppingCartService) {}
+	constructor(private cartService: ShoppingCartService, private router: Router) {}
+
+	checkOut() {
+		this.router.navigate([ '/check-out' ])
+	}
 
 	clearCart() {
 		if (confirm('Are you sure to clear the cart?')) {
