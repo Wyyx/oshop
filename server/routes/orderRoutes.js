@@ -25,13 +25,11 @@ module.exports = app => {
 	})
 
 	app.get('/api/orders', authenticate, (req, res) => {
-		// let token = req.get('Authorization').substring(6)
-		// console.log(token)
+		// remove Bearer and one space
+		let token = req.get('Authorization').substring(7)
+		console.log('token', token)
 
-		let token =
-			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiV3l5eCIsImFkbWluIjp0cnVlfQ.TkZdEiMinA_Lh_kS7ZDcxhuxd9ObxYHl0SbckJ-2h6Q'
 		let payload = jwt.decode(token)
-
 		console.log('payload', payload)
 
 		Order.find({ userId: payload.id }).then(orders => {
