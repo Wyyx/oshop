@@ -1,0 +1,15 @@
+<div class="card">
+    <ng-container *ngIf="addLink; else elseTemplate">
+        <a routerLink="/products/{{ product._id }}"> <img class="card-img-top" [src]="product.imageUrl"  [alt]="product.title"></a>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <img class="card-img-top" [src]="product.imageUrl" [alt]="product.title">
+    </ng-template>
+    <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">{{ product.price | currency:'USD':'symbol'}}</p>
+    </div>
+    <div *ngIf="showActions" class="card-footer text-muted">
+        <app-quantity-selector [product]="product"></app-quantity-selector>
+    </div>
+</div>
