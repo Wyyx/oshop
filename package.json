@@ -29,6 +29,7 @@
 		"concurrently": "^3.5.1",
 		"core-js": "^2.4.1",
 		"lodash": "^4.17.5",
+		"moment": "^2.22.1",
 		"mongoose": "^5.0.14",
 		"ng2-validation": "^4.2.0",
 		"rxjs": "^5.5.6",

@@ -35,7 +35,7 @@ export class ProductFormComponent {
 			productService.get(this.id).take(1).subscribe(product => (this.product = product))
 		}
 
-		categoryService.getAll().subscribe(categories => (this.categories = categories))
+		categoryService.getAll().take(1).subscribe(categories => (this.categories = categories))
 	}
 
 	save(product) {

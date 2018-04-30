@@ -24,6 +24,7 @@ export class ShippingFormComponent implements OnInit {
 		order.items = this.cartServive.cart.items
 		order.shipping = this.convertToShipping(form)
 		order.userId = this.authService.user.id
+		order.totalPrice = this.cartServive.cart.getTotalPrice()
 
 		console.log('order', order)
 

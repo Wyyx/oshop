@@ -15,7 +15,8 @@ const OrderSchema = new Schema({
 			product: ProductSchema
 		})
 	],
-	createTime: { type: Number, default: Date.now() }
+	totalPrice: Number,
+	createTime: Number
 })
 
 mongoose.model('orders', OrderSchema)

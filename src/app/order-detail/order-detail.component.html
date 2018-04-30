@@ -1,0 +1,30 @@
+<div *ngIf="order as o">
+    <h1>Order Detail</h1>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th style="width: 150px;">Product</th>
+                <th></th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of o.items" class="border-bottom">
+                <td scope="row">
+                    <a routerLink="/products/{{ i.product._id }}"><div [style.backgroundImage]="'url('+i.product.imageUrl+')'" class="rounded-circle thumbnail"></div></a>
+                </td>
+                <td>{{ i.product.title }}</td>
+                <td>
+                    {{ i.quantity }}
+                </td>
+                <td>{{ i.product.price | currency:'USD':'symbol' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <h5><span class="mr-2">Total Expense:</span> {{ o.totalPrice | currency:'USD':'symbol' }}</h5>
+    </div>
+</div>

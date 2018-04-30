@@ -1,6 +1,7 @@
+import { MyDate } from './pipes/myDate'
 import { OrderService } from './services/order.service'
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { NgModule, LOCALE_ID } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { FormsModule } from '@angular/forms'
@@ -35,6 +36,13 @@ import { LabComponent } from './lab/lab.component'
 import { ProductSelectorComponent } from './product-selector/product-selector.component'
 import { ShippingFormComponent } from './shipping-form/shipping-form.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
+import { OrderDetailComponent } from './order-detail/order-detail.component'
+import { ProductDetailComponent } from './product-detail/product-detail.component'
+
+// // Internationalization
+// import { registerLocaleData } from '@angular/common'
+// import localeZh from '@angular/common/locales/zh-Hans'
+// registerLocaleData(localeZh)
 
 @NgModule({
 	declarations: [
@@ -56,7 +64,10 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component'
 		LabComponent,
 		ProductSelectorComponent,
 		ShippingFormComponent,
-		OrderSummaryComponent
+		OrderSummaryComponent,
+		MyDate,
+		OrderDetailComponent,
+		ProductDetailComponent
 	],
 	imports: [
 		BrowserModule,
@@ -74,6 +85,16 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component'
 			},
 
 			{ path: 'my-orders', component: MyOrdersComponent, canActivate: [ AuthGuardService ] },
+			{
+				path: 'my-orders/:id',
+				component: OrderDetailComponent,
+				canActivate: [ AuthGuardService ]
+			},
+			{
+				path: 'products/:id',
+				component: ProductDetailComponent,
+				canActivate: [ AuthGuardService ]
+			},
 			{ path: 'check-out', component: CheckOutComponent, canActivate: [ AuthGuardService ] },
 			{
 				path: 'order-success',
@@ -123,6 +144,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component'
 		ProductService,
 		ShoppingCartService,
 		OrderService
+		// { provide: LOCALE_ID, useValue: 'zh-Hans' }
 
 		// // For creating a mock back-end. You don't need these in a real app.
 		// fakeBackendProvider,

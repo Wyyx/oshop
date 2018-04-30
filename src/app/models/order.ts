@@ -4,6 +4,7 @@ export class Order {
 	userId: string
 	shipping: Shipping
 	items: ShoppingCartItem[]
+	totalPrice: number
 }
 
 export class Shipping {

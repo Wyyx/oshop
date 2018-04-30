@@ -1,9 +1,16 @@
 <div *ngIf="cartService.cart as c">
     <h1>Shopping Cart</h1>
-    <p>You have {{ c.getTotalQuantity() || 0 }} items in your shopping cart<button *ngIf="c.getTotalQuantity() > 0"
-            (click)="clearCart()" class="btn btn-outline-secondary ml-3">Clear Shopping Cart</button></p>
+    <ng-container *ngIf="c.items.length > 0; else elseTemplate">
+        <p>You have {{ c.getTotalQuantity() || 0 }} items in your shopping cart.<button *ngIf="c.getTotalQuantity() > 0"
+                (click)="clearCart()" class="btn btn-outline-secondary ml-3">Clear Shopping Cart</button>
+        </p>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <p>Your shopping cart is empty. </p>
+    </ng-template>
 
-    <table class="table">
+    <table class="table" *ngIf="c.items.length > 0">
+
         <thead>
             <tr>
                 <th style="width: 150px;">Product</th>
@@ -15,7 +22,7 @@
         <tbody>
             <tr *ngFor="let item of c.items">
                 <td scope="row">
-                    <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="rounded-circle thumbnail"></div>
+                   <a routerLink="/products/{{ item.product._id }}"> <div [style.backgroundImage]="'url('+item.product.imageUrl+')'" class="rounded-circle thumbnail"></div></a>
                 </td>
                 <td>{{ item.product.title }}</td>
                 <td>
@@ -25,7 +32,7 @@
             </tr>
         </tbody>
         <tfoot>
-            <th><button *ngIf="c.items.length > 0" (click)="checkOut()" class="btn btn-danger">Check Out</button></th>
+            <th><button (click)="checkOut()" class="btn btn-danger">Check Out</button></th>
             <th colspan="2"></th>
             <th class="text-right">Total: <span class="pl-4">{{ c.getTotalPrice() | currency:'USD':'symbol' }}</span> </th>
         </tfoot>

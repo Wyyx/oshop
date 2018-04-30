@@ -7,11 +7,22 @@ import { AuthService } from './auth.service'
 
 @Injectable()
 export class OrderService {
+	orders: Order[]
 	constructor(
 		private cartService: ShoppingCartService,
 		private authHttp: AuthHttp,
 		private router: Router
-	) {}
+	) {
+		this.loadOrders()
+	}
+
+	loadOrders() {
+		this.getAll().take(1).subscribe(orders => {
+			if (orders) {
+				this.orders = orders
+			}
+		})
+	}
 
 	summitOrder(order: Order) {
 		this.authHttp
@@ -20,8 +31,17 @@ export class OrderService {
 			.take(1)
 			.subscribe(data => {
 				if (data) {
+					this.cartService.clearShoppingCart()
 					this.router.navigate([ '/order-success' ])
 				}
 			})
+	}
+
+	getAll() {
+		return this.authHttp.get('/api/orders').map(response => <Order[]>response.json())
+	}
+
+	get(id: string) {
+		return this.authHttp.get('/api/orders/' + id).map(response => <Order>response.json())
 	}
 }

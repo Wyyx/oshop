@@ -11,6 +11,7 @@ import { ShoppingCartItem } from '../models/shopping-cart-item'
 export class ProductCardComponent {
 	@Input('product') product: Product
 	@Input('showActions') showActions: boolean = true
+	@Input('addLink') addLink: boolean = true
 
 	constructor() {}
 }
