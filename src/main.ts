@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
 import { AppModule } from './app/app.module'
 import { environment } from './environments/environment'
-import './js/svg-with-js/js/fontawesome-all.js'
+import './js/fontawesome-svg-with-js/js/fontawesome-all.js'
 
 if (environment.production) {
 	enableProdMode()

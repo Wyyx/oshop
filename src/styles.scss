@@ -1,42 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
+// @import "~bootstrap/dist/css/bootstrap.css";
+
+// overide bootstrap variables
+$primary: #00796b;
+
+// add or modify theme colors
+$theme-colors: ("teal": #18a7b5);
+
+@import "~bootstrap/scss/bootstrap.scss";
 
 body {
 	padding-top: 80px;
-}
-
-$primary-color: #00796b;
-$p-dark: #004c40;
-$p-light: #48a999;
-
-$secondary-color: #c0ca33;
-$s-dark: #8c9900;
-$s-light: #f5fd67;
-
-.list-group-item.active {
-	background-color: $primary-color;
-	border-color: $primary-color;
-}
-.btn-primary {
-	background-color: $primary-color;
-	border-color: $primary-color;
-}
-
-.btn-primary:hover {
-	background-color: $p-dark;
-	border-color: $p-dark;
-}
-
-.btn-primary.disabled,
-.btn-primary:disabled {
-	background-color: $primary-color;
-	border-color: $primary-color;
-}
-
-a {
-	color: $primary-color;
-}
-
-.navbar-light .navbar-brand {
-	color: $primary-color;
 }
