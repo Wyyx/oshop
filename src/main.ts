@@ -3,10 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 
 import { AppModule } from './app/app.module'
 import { environment } from './environments/environment'
-import './js/fontawesome-svg-with-js/js/fontawesome-all.js'
 
 if (environment.production) {
-	enableProdMode()
+  enableProdMode()
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.log(err))
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch(err => console.log(err))

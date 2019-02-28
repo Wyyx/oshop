@@ -1,20 +1,20 @@
-<div *ngIf="orderService.orders as orders">
+<div>
   <h1>Manage Orders</h1>
   <table class="table">
-      <thead>
-          <tr>
-              <th>Date</th>
-              <th>Expense</th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let o of orders">
-              <td>{{ o.createTime | date:'medium' }}</td>
-              <td>{{ o.totalPrice | currency:'USD':'symbol' }}</td>
-              <td><a routerLink="/my-orders/{{ o._id }}">View</a></td>
-          </tr>
-      </tbody>
-     
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Expense</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of orders$ | async">
+        <td>{{ o.createTime | date:'medium' }}</td>
+        <td>{{ o.totalPrice | currency:'USD':'symbol' }}</td>
+        <td><a routerLink="/my-orders/{{ o._id }}">View</a></td>
+      </tr>
+    </tbody>
+
   </table>
 </div>

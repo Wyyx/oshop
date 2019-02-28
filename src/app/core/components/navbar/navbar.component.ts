@@ -1,22 +1,34 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, OnInit, AfterViewInit } from '@angular/core'
-import { AuthService } from 'shared/services/auth.service'
-import { ShoppingCartService } from 'shared/services/shopping-cart.service'
-import { ShoppingCart } from 'shared/models/shopping-cart'
+import { AuthService } from '../../services/auth.service'
+import { CartService } from '../../services/cart.service'
+import { Cart } from 'shared/models/cart.model'
 import { Observable } from 'rxjs'
+import { User } from 'shared/models/user.model'
 
 @Component({
-	selector: 'app-navbar',
-	templateUrl: './navbar.component.html',
-	styleUrls: [ './navbar.component.css' ]
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-	showLogin: boolean = true
-	constructor(
-		private authService: AuthService,
-		private cartService: ShoppingCartService,
-		private router: Router
-	) {
-		if (this.router.url === 'login') this.showLogin = false
-	}
+  user$: Observable<User>
+  isLoggedIn$: Observable<boolean>
+  isAdmin$: Observable<boolean>
+  totalQuantity$: Observable<number>
+
+  constructor(
+    private authService: AuthService,
+    private cartService: CartService,
+    private router: Router
+  ) {
+    this.user$ = this.authService.user$
+    this.isLoggedIn$ = this.authService.isLoggedIn$
+    this.isAdmin$ = this.authService.isAdmin$
+    this.totalQuantity$ = this.cartService.totalQuantity$
+  }
+
+  logout() {
+    this.authService.logout()
+  }
 }

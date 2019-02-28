@@ -6,10 +6,7 @@ import { CommonModule } from '@angular/common'
 import { LoginComponent } from './components/login/login.component'
 
 @NgModule({
-	imports: [
-		SharedModule,
-		RouterModule.forChild([ { path: 'login', component: LoginComponent } ])
-	],
-	declarations: [ LoginComponent ]
+  imports: [SharedModule, RouterModule.forChild([{ path: 'login', component: LoginComponent }])],
+  declarations: [LoginComponent]
 })
 export class MembershipModule {}

@@ -1,12 +1,17 @@
-<div class="card" *ngIf="cartService.cart as c">
-    <div class="card-body">
-        <h3 class="card-title">Order Summary</h3>
-        <p class="card-text">You have {{ c.getTotalQuantity() }} items in your shopping cart.</p>
-        <ul class="list-group list-group-flush">
-            <li *ngFor="let item of c.items" class="list-group-item">{{ item.quantity + ' x ' + item.product.title }}
-                <span class="float-right">{{ item.product.price | currency:'USD':'symbol' }}</span>
-            </li>
-            <li class="list-group-item font-weight-bold">Total <span class="float-right"> {{ c.getTotalPrice() | currency:'USD':'symbol' }} </span></li>
-        </ul>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Order Summary</h3>
+    <p class="card-text">You have {{ totakQuantity$ | async }} items in your shopping cart.</p>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let item of (items$ | async)" class="list-group-item">
+        {{ item.quantity + ' x ' + item.product.title }}
+        <span class="float-right">{{ item.product.price | currency: 'USD':'symbol' }}</span>
+      </li>
+
+      <li class="list-group-item font-weight-bold">
+        Total
+        <span class="float-right"> {{ totalPrice$ | async | currency: 'USD':'symbol' }} </span>
+      </li>
+    </ul>
+  </div>
 </div>

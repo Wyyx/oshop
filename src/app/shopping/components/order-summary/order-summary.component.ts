@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core'
-import { ShoppingCartService } from 'shared/services/shopping-cart.service'
+import { CartService } from '../../../core/services/cart.service'
+import { Observable } from 'rxjs'
+import { CartItem } from 'shared/models/cart-item.model'
 
 @Component({
-	selector: 'app-order-summary',
-	templateUrl: './order-summary.component.html',
-	styleUrls: [ './order-summary.component.css' ]
+  selector: 'app-order-summary',
+  templateUrl: './order-summary.component.html',
+  styleUrls: ['./order-summary.component.css']
 })
 export class OrderSummaryComponent implements OnInit {
-	constructor(private cartService: ShoppingCartService) {}
+  totakQuantity$: Observable<number>
+  totalPrice$: Observable<number>
+  items$: Observable<CartItem[]>
 
-	ngOnInit() {}
+  constructor(private cartService: CartService) {}
+
+  ngOnInit() {
+    this.totakQuantity$ = this.cartService.totalQuantity$
+    this.totalPrice$ = this.cartService.totalPrice$
+    this.items$ = this.cartService.items$
+  }
 }

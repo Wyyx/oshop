@@ -18,7 +18,7 @@ require('./routes/shoppingCartRoutes')(app)
 require('./routes/orderRoutes')(app)
 
 // start app
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 app.listen(PORT, function() {
 	console.log('server is up on port', PORT)
 })

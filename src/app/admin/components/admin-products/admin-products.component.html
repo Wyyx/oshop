@@ -1,66 +1,100 @@
+<h1>Manage Products</h1>
 <!-- add new product -->
 <p>
-    <a routerLink="/admin/products/new" class="btn btn-success">New Product</a>
+  <a routerLink="/admin/products/new"
+     class="btn btn-success">New Product</a>
 </p>
 <!-- filter input -->
 <div class="form-group">
-    <input class="form-control d-inline" id="query" #query (keyup)="filter(query.value)" type="text" placeholder="Search...">
+  <input class="form-control d-inline"
+         id="query"
+         #query
+         (keyup)="filter(query.value)"
+         type="text"
+         placeholder="Search...">
 </div>
 <!-- products table -->
-<table class="table" *ngIf="page">
-    <thead>
-        <tr>
-            <th class="my-clickable" (click)="sort('title')" (mouseover)="mouseoverThead()" (mouseout)="mouseoutThead()">Title
-                <div *ngIf="showSortIconHover" class="d-flex flex-column float-right">
-                    <span class="mb-1"><i class="fas fa-angle-up"></i></span>
-                    <span class="mt-1"><i class="fas fa-angle-down"></i></span>
-                </div>
-                <span *ngIf="showSortIconClick && sortProperty === 'title'">
-                    <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
-                    <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
-                </span>
-            </th>
-            <th class="my-clickable" (click)="sort('price')" (mouseover)="mouseoverThead()" (mouseout)="mouseoutThead()">Price
-                <div *ngIf="showSortIconHover" class="d-flex flex-column float-right">
-                    <span class="mb-1"><i class="fas fa-angle-up"></i></span>
-                    <span class="mt-1"><i class="fas fa-angle-down"></i></span>
-                </div>
-                <span *ngIf="showSortIconClick && sortProperty === 'price'">
-                    <span class="float-right"><i *ngIf="toggleDirection" class="fas fa-angle-up"></i></span>
-                    <span class="float-right"><i *ngIf="!toggleDirection" class="fas fa-angle-down float-right"></i></span>
-                </span>
-            </th>
-            <th>Operation</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of page.content">
-            <td>{{ p.title }}</td>
-            <td>{{ p.price }} </td>
-            <td><a class="btn btn-outline-primary" [routerLink]="['/admin/products/', p._id]">Edit</a>
-                <button class="btn btn-outline-danger" (click)="deleteProduct(p._id)">Delete</button>
-            </td>
-        </tr>
-    </tbody>
+<table class="table"
+       *ngIf="page">
+  <thead>
+    <tr>
+      <th class="my-clickable"
+          (click)="sort('title')"
+          (mouseover)="mouseoverThead()"
+          (mouseout)="mouseoutThead()">Title
+        <div *ngIf="showSortIconHover"
+             class="d-flex flex-column float-right">
+          <span class="mb-1"><i class="fas fa-angle-up"></i></span>
+          <span class="mt-1"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <span *ngIf="showSortIconClick && sortProperty === 'title'">
+          <span class="float-right"><i *ngIf="toggleDirection"
+               class="fas fa-angle-up"></i></span>
+          <span class="float-right"><i *ngIf="!toggleDirection"
+               class="fas fa-angle-down float-right"></i></span>
+        </span>
+      </th>
+      <th class="my-clickable"
+          (click)="sort('price')"
+          (mouseover)="mouseoverThead()"
+          (mouseout)="mouseoutThead()">Price
+        <div *ngIf="showSortIconHover"
+             class="d-flex flex-column float-right">
+          <span class="mb-1"><i class="fas fa-angle-up"></i></span>
+          <span class="mt-1"><i class="fas fa-angle-down"></i></span>
+        </div>
+        <span *ngIf="showSortIconClick && sortProperty === 'price'">
+          <span class="float-right"><i *ngIf="toggleDirection"
+               class="fas fa-angle-up"></i></span>
+          <span class="float-right"><i *ngIf="!toggleDirection"
+               class="fas fa-angle-down float-right"></i></span>
+        </span>
+      </th>
+      <th>Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of page.content">
+      <td>{{ p.title }}</td>
+      <td>{{ p.price }} </td>
+      <td><a class="btn btn-outline-primary mr-2"
+           [routerLink]="['/admin/products/', p._id]">Edit</a>
+        <button class="btn btn-outline-danger"
+                (click)="deleteProduct(p._id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- pagination -->
-<nav aria-label="Page navigation" *ngIf="page">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" [ngClass]="page.isFirstPage && {'disabled': true }">
-            <a class="page-link" (click)="pageUtil.getPage(1)">First</a>
-        </li>
-        <li class="page-item" [ngClass]="page.isFirstPage && {'disabled': true }">
-            <a class="page-link" (click)="pageUtil.previousPage()">Previous</a>
-        </li>
-        <li *ngFor="let number of pageUtil.getPaginations(5)" class="page-item" [ngClass]="page.currentPage == number && {'active': true}">
-            <a class="page-link" (click)="pageUtil.getPage(number)">{{ number }}</a>
-        </li>
-        <li class="page-item" [ngClass]="page.isLastPage && {'disabled': true }">
-            <a class="page-link" (click)="pageUtil.nextPage()">Next</a>
-        </li>
-        <li class="page-item" [ngClass]="page.isLastPage && {'disabled': true }">
-            <a class="page-link" (click)="pageUtil.getPage(page.totalPages)">Last</a>
-        </li>
-    </ul>
+<nav aria-label="Page navigation"
+     *ngIf="page">
+  <ul class="pagination justify-content-center">
+    <li class="page-item"
+        [ngClass]="page.isFirstPage && {'disabled': true }">
+      <a class="page-link"
+         (click)="pageUtil.getPage(1)">First</a>
+    </li>
+    <li class="page-item"
+        [ngClass]="page.isFirstPage && {'disabled': true }">
+      <a class="page-link"
+         (click)="pageUtil.previousPage()">Previous</a>
+    </li>
+    <li *ngFor="let number of pageUtil.getPaginations(5)"
+        class="page-item"
+        [ngClass]="page.currentPage == number && {'active': true}">
+      <a class="page-link"
+         (click)="pageUtil.getPage(number)">{{ number }}</a>
+    </li>
+    <li class="page-item"
+        [ngClass]="page.isLastPage && {'disabled': true }">
+      <a class="page-link"
+         (click)="pageUtil.nextPage()">Next</a>
+    </li>
+    <li class="page-item"
+        [ngClass]="page.isLastPage && {'disabled': true }">
+      <a class="page-link"
+         (click)="pageUtil.getPage(page.totalPages)">Last</a>
+    </li>
+  </ul>
 </nav>

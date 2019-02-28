@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { AuthGuardService } from './../shared/services/auth-guard.service'
+import { AuthGuardService } from '../core/services/auth-guard.service'
 import { SharedModule } from './../shared/shared.module'
 import { CheckOutComponent } from './components/check-out/check-out.component'
 import { MyOrdersComponent } from './components/my-orders/my-orders.component'
@@ -15,45 +15,44 @@ import { ShippingFormComponent } from './components/shipping-form/shipping-form.
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component'
 
 @NgModule({
-	imports: [
-		SharedModule,
-		RouterModule.forChild([
-			{ path: 'products', component: ProductsComponent, canActivate: [ AuthGuardService ] },
-			{
-				path: 'shopping-cart',
-				component: ShoppingCartComponent
-			},
-			{ path: 'my-orders', component: MyOrdersComponent, canActivate: [ AuthGuardService ] },
-			{
-				path: 'my-orders/:id',
-				component: OrderDetailComponent,
-				canActivate: [ AuthGuardService ]
-			},
-			{
-				path: 'products/:id',
-				component: ProductDetailComponent,
-				canActivate: [ AuthGuardService ]
-			},
-			{ path: 'check-out', component: CheckOutComponent, canActivate: [ AuthGuardService ] },
-			{
-				path: 'order-success',
-				component: OrderSuccessComponent,
-				canActivate: [ AuthGuardService ]
-			}
-		])
-	],
-	declarations: [
-		ProductsComponent,
-		ShoppingCartComponent,
-		CheckOutComponent,
-		OrderSuccessComponent,
-		MyOrdersComponent,
-		ShippingFormComponent,
-		OrderSummaryComponent,
-		ProductFilterComponent,
-		OrderDetailComponent,
-		ProductDetailComponent
-	],
-	exports: [ ProductsComponent ]
+  imports: [
+    SharedModule,
+    RouterModule.forChild([
+      { path: 'products', component: ProductsComponent, canActivate: [AuthGuardService] },
+      {
+        path: 'shopping-cart',
+        component: ShoppingCartComponent
+      },
+      { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuardService] },
+      {
+        path: 'my-orders/:id',
+        component: OrderDetailComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent,
+      },
+      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService] },
+      {
+        path: 'order-success',
+        component: OrderSuccessComponent,
+        canActivate: [AuthGuardService]
+      }
+    ])
+  ],
+  declarations: [
+    ProductsComponent,
+    ShoppingCartComponent,
+    CheckOutComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
+    ShippingFormComponent,
+    OrderSummaryComponent,
+    ProductFilterComponent,
+    OrderDetailComponent,
+    ProductDetailComponent
+  ],
+  exports: [ProductsComponent]
 })
 export class ShoppingModule {}

@@ -1,65 +1,92 @@
-import { Component, OnInit } from '@angular/core'
-import { CategoryService } from 'shared/services/category.service'
-import { ProductService } from 'shared/services/product.service'
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/take'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Component } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { take, mergeMap, tap, catchError } from 'rxjs/operators'
+import { Category } from 'shared/models/category.model'
+import { Product } from 'shared/models/product.model'
+import { CategoryService } from '../../../core/services/category.service'
+import { ProductService } from '../../../core/services/product.service'
 import * as messages from '../../../helpers/constants/messages'
-import { Category } from 'shared/models/category'
-import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util'
-import { Product } from 'shared/models/product'
+import { of } from 'rxjs'
 
 @Component({
-	selector: 'app-product-form',
-	templateUrl: './product-form.component.html',
-	styleUrls: [ './product-form.component.css' ]
+  selector: 'app-product-form',
+  templateUrl: './product-form.component.html',
+  styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent {
-	product: Product
-	id
-	categories: Category[]
-	isSuccess: boolean
-	showMessage: boolean = false
+  product: Product
+  id
+  categories: Category[]
+  isSuccess: boolean
+  showMessage: boolean = false
 
-	constructor(
-		private route: ActivatedRoute,
-		private router: Router,
-		private categoryService: CategoryService,
-		private productService: ProductService
-	) {
-		this.product = new Product()
-		this.product.category = new Category()
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private categoryService: CategoryService,
+    private productService: ProductService
+  ) {
+    this.product = new Product()
+    this.product.category = new Category()
 
-		this.id = route.snapshot.paramMap.get('id')
-		if (this.id) {
-			productService.get(this.id).take(1).subscribe(product => (this.product = product))
-		}
+    this.id = route.snapshot.paramMap.get('id')
+    if (this.id) {
+      productService
+        .get(this.id)
+        .pipe(take(1))
+        .subscribe(product => (this.product = product))
+    }
 
-		categoryService.getAll().take(1).subscribe(categories => (this.categories = categories))
-	}
+    categoryService
+      .getAll()
+      .pipe(take(1))
+      .subscribe(categories => (this.categories = categories))
+  }
 
-	save(product) {
-		// set category
-		product.category = this.categories.find(c => c.id === toInteger(product.category))
+  save(product) {
+    // set category
+    product.category = this.categories.find(c => c.id === parseInt(product.category))
+    const productId = product._id
 
-		this.productService.save(product).subscribe(res => {
-			res.message === messages.SUCCESS ? (this.isSuccess = true) : (this.isSuccess = false)
-			this.showMessage = true
-			setTimeout(() => {
-				this.showMessage = false
+    of(productId)
+      .pipe(
+        mergeMap(id => {
+          if (id) {
+            // Update product
+            return this.productService.update({ id, changes: { ...product } })
+          } else {
+            // Add new product
+            return this.productService.add(product)
+          }
+        }),
+        tap(res => {
+          console.log(res)
+          this.isSuccess = res.message === messages.SUCCESS ? true : false
+          this._showMessage()
+        }),
+        catchError(error => {
+          console.log('error', error)
+          return of(error)
+        }),
+        take(1)
+      )
+      .subscribe()
+  }
 
-				if (res.message === messages.SUCCESS) {
-					this.router.navigate([ '/admin/products' ])
-				}
-			}, 500)
-		})
-	}
+  private _showMessage() {
+    this.showMessage = true
 
-	delete() {
-		if (confirm('Are you sure to delete the product?')) {
-			this.productService.delete(this.id).subscribe(() => {
-				this.router.navigate([ '/admin/products' ])
-			})
-		}
-	}
+    setTimeout(() => {
+      this.showMessage = false
+      this.router.navigate(['/admin/products'])
+    }, 1000)
+  }
+
+  delete() {
+    if (confirm('Are you sure to delete the product?')) {
+      this.productService.delete(this.id).subscribe(() => {
+        this.router.navigate(['/admin/products'])
+      })
+    }
+  }
 }

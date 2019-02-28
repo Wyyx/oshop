@@ -1,5 +1,3 @@
-const authenticate = require('../middlewares/authenticateMiddleware')
-
 module.exports = app => {
 	app.get('/api/categories', (req, res) => {
 		res.send([

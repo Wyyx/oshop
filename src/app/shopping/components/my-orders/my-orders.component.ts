@@ -1,15 +1,19 @@
-import { OrderService } from 'shared/services/order.service'
+import { OrderService } from '../../../core/services/order.service'
 import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { Order } from 'shared/models/order.model'
 
 @Component({
-	selector: 'app-my-orders',
-	templateUrl: './my-orders.component.html',
-	styleUrls: [ './my-orders.component.css' ]
+  selector: 'app-my-orders',
+  templateUrl: './my-orders.component.html',
+  styleUrls: ['./my-orders.component.css']
 })
 export class MyOrdersComponent implements OnInit {
-	constructor(private orderService: OrderService) {}
+  orders$: Observable<Order[]>
 
-	ngOnInit() {
-		this.orderService.loadOrders()
-	}
+  constructor(private orderService: OrderService) {}
+
+  ngOnInit() {
+    this.orders$ = this.orderService.getAll()
+  }
 }

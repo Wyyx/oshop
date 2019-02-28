@@ -2,6 +2,6 @@ const SUCCESS = { message: 'success' }
 const FAILURE = { message: 'failure' }
 
 module.exports = {
-	SUCCESS,
-	FAILURE
+  SUCCESS: 'success',
+  FAILURE: 'failure'
 }

@@ -5,54 +5,41 @@ const Order = mongoose.model('orders')
 const messages = require('../contants/messages')
 
 module.exports = app => {
-	app.post('/api/orders', authenticate, (req, res) => {
-		const order = req.body
-		console.log('======== req order:', order)
-		order.createTime = new Date()
+  app.post('/api/orders', authenticate, async (req, res) => {
+    const order = req.body
+    console.log('======== req order:', order)
+    order.createTime = new Date()
 
-		new Order(order).save().then(
-			order => {
-				if (order) {
-					res.status(201).send(order)
-				} else {
-					res.status(200).send()
-				}
-			},
-			err => {
-				res.status(200).send()
-			}
-		)
-	})
+    try {
+      const order = await new Order(order).save()
+      order ? res.status(201).send(order) : res.status(200).send()
+    } catch (error) {
+      res.status(200).send()
+    }
+  })
 
-	app.get('/api/orders', authenticate, (req, res) => {
-		// remove Bearer and one space
-		let token = req.get('Authorization').substring(7)
-		console.log('token', token)
+  app.get('/api/orders', authenticate, async (req, res) => {
+    // remove Bearer and one space
+    let token = req.get('Authorization').substring(7)
+    console.log('token', token)
 
-		let payload = jwt.decode(token)
-		console.log('payload', payload)
+    let payload = jwt.decode(token)
+    console.log('payload', payload)
 
-		Order.find({ userId: payload.id }).then(orders => {
-			if (orders) {
-				res.status(200).send(orders)
-			}
-		})
-	})
+    const orders = await Order.find(payload.admin ? {} : { userId: payload.id })
+    if (orders) {
+      res.status(200).send(orders)
+    }
+  })
 
-	app.get('/api/orders/:id', authenticate, (req, res) => {
-		let id = req.params.id
+  app.get('/api/orders/:id', authenticate, async (req, res) => {
+    let id = req.params.id
 
-		Order.findById(id).then(
-			order => {
-				console.log('======== db order:', order)
-				if (order) {
-					res.status(200).send(order)
-				}
-				res.status(400).send(messages.FAILURE)
-			},
-			err => {
-				res.status(500).send(messages.FAILURE)
-			}
-		)
-	})
+    try {
+      const order = await Order.findById(id)
+      order ? res.status(200).send(order) : res.status(400).send(messages.FAILURE)
+    } catch (error) {
+      res.status(500).send(messages.FAILURE)
+    }
+  })
 }
