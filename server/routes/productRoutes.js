@@ -46,7 +46,7 @@ module.exports = app => {
     )
   })
 
-  app.get('/api/products/:id', authenticate, (req, res) => {
+  app.get('/api/products/:id', (req, res) => {
     let id = req.params.id
 
     Product.findById(id).then(

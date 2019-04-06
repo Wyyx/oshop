@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 // connect to mongodb
 const env = process.env.NODE_ENV || 'development'
-let mongodbUrl = 'mongodb://oshop_user:google:localhost:28017/oshop'
+let mongodbUrl = 'mongodb://oshop_user:google@localhost:28017/oshop?authSource=admin'
 if (env === 'development') {
   mongodbUrl = 'mongodb://localhost:27017/oshop'
 }

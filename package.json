@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "yarn install && yarn run build && yarn run install-server",
-    "install-server": "cd ./server && yarn install",
+    "start": "yarn install --production=false && yarn run build && yarn run install-server",
+    "install-server": "cd ./server && yarn install && cd ..",
     "clean": "rm -rf node_modules",
     "ng-server": "ng serve --port 4203 --proxy-config proxy.config.json",
     "dev": "concurrently \"npm run ng-server\" \"npm run server --prefix server\"",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "pm2 deploy production"
   },
   "private": true,
   "dependencies": {

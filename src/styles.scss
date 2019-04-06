@@ -4,12 +4,13 @@
 $primary: #00796b;
 
 // add or modify theme colors
-$theme-colors: ('teal': #18a7b5);
+$theme-colors: (
+  'teal': #18a7b5
+);
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 body {
   padding-top: 80px;
-
 }

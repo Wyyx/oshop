@@ -1,21 +1,33 @@
-<div *ngIf="cartService.cart">
-  <button *ngIf="localQuantity === 0; else selector"
-          (click)="plusQuantity()"
-          class="btn btn-primary float-right">Add to Cart</button>
+<div *ngIf="cart">
+  <button
+    *ngIf="localQuantity === 0; else selector"
+    (click)="plusQuantity()"
+    class="btn btn-primary float-right"
+  >
+    Add to Cart
+  </button>
   <ng-template #selector>
     <div class="row text-center">
       <div class="col">
-        <button style="width: 38px; height: 38px;"
-                class="btn btn-secondary "
-                (click)="minusQuantity()">-</button>
+        <button
+          style="width: 38px; height: 38px;"
+          class="btn btn-secondary "
+          (click)="minusQuantity()"
+        >
+          -
+        </button>
       </div>
       <div class="col align-self-center quantity">
         <span class="quantity ">{{ 'Quantity: ' + localQuantity }}</span>
       </div>
       <div class="col">
-        <button style="width: 38px; height: 38px;"
-                class="btn btn-secondary "
-                (click)="plusQuantity()">+</button>
+        <button
+          style="width: 38px; height: 38px;"
+          class="btn btn-secondary "
+          (click)="plusQuantity()"
+        >
+          +
+        </button>
       </div>
     </div>
   </ng-template>

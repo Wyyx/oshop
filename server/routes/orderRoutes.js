@@ -11,10 +11,11 @@ module.exports = app => {
     order.createTime = new Date()
 
     try {
-      const order = await new Order(order).save()
-      order ? res.status(201).send(order) : res.status(200).send()
+      const resOrder = await new Order(order).save()
+      resOrder ? res.status(200).send(resOrder) : res.status(200).send(messages.FAILURE)
     } catch (error) {
-      res.status(200).send()
+      console.log('error', error)
+      res.status(200).send(messages.FAILURE)
     }
   })
 

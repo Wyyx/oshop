@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core'
-import { CartService } from '../../../core/services/cart.service'
+import { Component, Input, OnInit } from '@angular/core'
+import { take, tap } from 'rxjs/operators'
 import { Product } from 'shared/models/product.model'
-import { Subject } from 'rxjs'
-import { takeUntil, tap, filter, take } from 'rxjs/operators'
+import { CartService } from '../../../core/services/cart.service'
 
 @Component({
   selector: 'app-quantity-selector',
@@ -15,6 +14,10 @@ export class QuantitySelectorComponent implements OnInit {
   localQuantity: number = 0
 
   constructor(private cartService: CartService) {}
+
+  get cart() {
+    return this.cartService.cart
+  }
 
   ngOnInit() {
     // get init localQuantity from cart

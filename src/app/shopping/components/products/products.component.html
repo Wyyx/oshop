@@ -4,30 +4,24 @@
   </div>
   <div class="col pt-3 pt-md-0">
     <div class="row justify-content-center">
-      <div class="first col-10 col-sm-6 col-md-4 p-3">
+      <div class="first col-12 col-lg-4 p-3">
         <ng-container *ngFor="let p of filteredProducts; let i = index">
-          <div *ngIf="i % 3 === 0"
-               class="pb-5">
-            <app-product-card class="card"
-                              [product]="p"></app-product-card>
+          <div *ngIf="i % 3 === 0" class="pb-5">
+            <app-product-card class="card" [product]="p"></app-product-card>
           </div>
         </ng-container>
       </div>
-      <div class="second col-10 col-sm-6 col-md-4 p-3">
+      <div class="second col-12 col-lg-4 p-3">
         <ng-container *ngFor="let p of filteredProducts; let i = index">
-          <div *ngIf="i % 3 === 1"
-               class="pb-5">
-            <app-product-card class="card"
-                              [product]="p"></app-product-card>
+          <div *ngIf="i % 3 === 1" class="pb-5">
+            <app-product-card class="card" [product]="p"></app-product-card>
           </div>
         </ng-container>
       </div>
-      <div class="third col-10 col-sm-6 col-md-4 p-3">
+      <div class="third col-12 col-lg-4 p-3">
         <ng-container *ngFor="let p of filteredProducts; let i = index">
-          <div *ngIf="i % 3 === 2"
-               class="pb-5">
-            <app-product-card class="card"
-                              [product]="p"></app-product-card>
+          <div *ngIf="i % 3 === 2" class="pb-5">
+            <app-product-card class="card" [product]="p"></app-product-card>
           </div>
         </ng-container>
       </div>

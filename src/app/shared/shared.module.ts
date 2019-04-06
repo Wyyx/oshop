@@ -11,10 +11,11 @@ import { ProductService } from '../core/services/product.service'
 import { AuthGuardService } from '../core/services/auth-guard.service'
 import { CartService } from '../core/services/cart.service'
 import { RouterModule } from '@angular/router'
+import { MyDate } from './pipes/my-date.pipe'
 
 @NgModule({
   imports: [CommonModule, RouterModule, FormsModule, CustomFormsModule],
-  declarations: [ProductCardComponent, QuantitySelectorComponent],
+  declarations: [ProductCardComponent, QuantitySelectorComponent, MyDate],
   providers: [
     AuthService,
     AuthGuardService,
