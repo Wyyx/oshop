@@ -1,5 +1,5 @@
 <div>
-  <h1>Manage Orders</h1>
+  <h3>Manage Orders</h3>
   <table class="table">
     <thead>
       <tr>
@@ -9,12 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let o of orders$ | async">
-        <td>{{ o.createTime | date:'medium' }}</td>
-        <td>{{ o.totalPrice | currency:'USD':'symbol' }}</td>
+      <tr *ngFor="let o of (orders$ | async)">
+        <td>{{ o.createTime | date: 'medium' }}</td>
+        <td>{{ o.totalPrice | currency: 'USD':'symbol' }}</td>
         <td><a routerLink="/my-orders/{{ o._id }}">View</a></td>
       </tr>
     </tbody>
-
   </table>
 </div>

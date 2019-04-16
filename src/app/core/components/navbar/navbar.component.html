@@ -1,59 +1,51 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
   <div class="container">
-    <a class="navbar-brand"
-       routerLink="/"><i class="fas fa-leaf"></i></a>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+    <a class="navbar-brand" routerLink="/"><i class="fas fa-leaf"></i></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse"
-         id="navbarsExampleDefault">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a *ngIf="totalQuantity$ | async"
-             class="nav-link"
-             routerLink="/shopping-cart"><i class="fas fa-shopping-cart mr-1"></i>
-            <span class="badge badge-warning">{{ totalQuantity$ | async }}</span></a>
+          <a *ngIf="(totalQuantity$ | async)" class="nav-link" routerLink="/shopping-cart"
+            ><i class="fas fa-shopping-cart mr-1"></i>
+            <span class="badge badge-warning">{{ totalQuantity$ | async }}</span></a
+          >
         </li>
       </ul>
 
       <ul class="navbar-nav">
-        <li *ngIf="!(isLoggedIn$ | async)"
-            class="nav-item">
-          <a class="nav-link"
-             routerLink="/login">Login</a>
+        <li *ngIf="!(isLoggedIn$ | async)" class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
         </li>
-        <li *ngIf="isLoggedIn$ | async"
-            ngbDropdown
-            class="nav-item dropdown">
-          <a ngbDropdownToggle
-             class="nav-link dropdown-toggle"
-             id="dropdown01"
-             data-toggle="dropdown"
-             aria-haspopup="true"
-             aria-expanded="false"><i class="fas fa-user-circle mr-2"></i>{{ (user$ | async)?.name }}</a>
-          <div ngbDropdownMenu
-               class="dropdown-menu"
-               aria-labelledby="dropdown01">
-            <a class="dropdown-item"
-               routerLink="/my-orders">My Orders</a>
-            <ng-container *ngIf="isAdmin$ | async">
-              <a class="dropdown-item"
-                 routerLink="/admin/orders">Manage Orders</a>
-              <a class="dropdown-item"
-                 routerLink="/admin/products">Manage Products</a>
+        <li *ngIf="(isLoggedIn$ | async)" ngbDropdown class="nav-item dropdown">
+          <a
+            ngbDropdownToggle
+            class="nav-link dropdown-toggle"
+            id="dropdown01"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            ><i class="fas fa-user-circle mr-2"></i>{{ (user$ | async)?.name }}</a
+          >
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" routerLink="/my-orders">My Orders</a>
+            <ng-container *ngIf="(isAdmin$ | async)">
+              <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+              <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
             </ng-container>
-            <a class="dropdown-item"
-               (click)="logout()">Logout</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
         </li>
       </ul>
     </div>
-
   </div>
 </nav>

@@ -1,46 +1,34 @@
 <div>
-  <h1>Shipping</h1>
+  <h3>Shipping</h3>
   <!-- create shipping form -->
   <form #f="ngForm">
     <div class="form-group">
       <label for="name">Name</label>
-      <input ngModel
-             #name="ngModel"
-             type="text"
-             name="name"
-             class="form-control"
-             required>
-      <div *ngIf="name.touched && name.invalid"
-           class="alert alert-danger">Need a name</div>
+      <input ngModel #name="ngModel" type="text" name="name" class="form-control" required />
+      <div *ngIf="name.touched && name.invalid" class="alert alert-danger">Need a name</div>
     </div>
 
     <div class="form-group">
       <label for="address">Address</label>
-      <input ngModel
-             #address="ngModel"
-             type="text"
-             name="address1"
-             class="form-control"
-             required>
-      <div *ngIf="address.touched && address.invalid"
-           class="alert alert-danger">Need a address</div>
+      <input ngModel #address="ngModel" type="text" name="address1" class="form-control" required />
+      <div *ngIf="address.touched && address.invalid" class="alert alert-danger">
+        Need a address
+      </div>
     </div>
 
     <div class="form-group">
       <label for="city">City</label>
-      <input ngModel
-             #city="ngModel"
-             type="text"
-             name="city"
-             class="form-control"
-             required>
-      <div *ngIf="city.touched && city.invalid"
-           class="alert alert-danger">Need a city</div>
+      <input ngModel #city="ngModel" type="text" name="city" class="form-control" required />
+      <div *ngIf="city.touched && city.invalid" class="alert alert-danger">Need a city</div>
     </div>
 
-    <button [disabled]="!f.valid"
-            (click)="submitOrder(f.value)"
-            type="button"
-            class="btn btn-primary">Submit Order</button>
+    <button
+      [disabled]="!f.valid"
+      (click)="submitOrder(f.value)"
+      type="button"
+      class="btn btn-primary"
+    >
+      Submit Order
+    </button>
   </form>
 </div>

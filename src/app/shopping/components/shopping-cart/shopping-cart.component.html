@@ -1,46 +1,51 @@
-<ng-container *ngIf="totalQuantity$ | async; else elseTemplate">
+<ng-container *ngIf="(totalQuantity$ | async); else elseTemplate">
   <div>
-    <h1>Shopping Cart</h1>
-    <p>You have {{ (totalQuantity$ | async) }} items in your shopping cart.<button (click)="clearCart()"
-              class="btn btn-outline-danger ml-3">Clear Shopping Cart</button>
+    <h3>Shopping Cart</h3>
+    <p>
+      You have {{ totalQuantity$ | async }} items in your shopping cart.
+      <span class="py-2" style="display: inline-block;">
+        <button (click)="clearCart()" class="btn btn-outline-danger">
+          Clear Shopping Cart
+        </button>
+      </span>
     </p>
     <table class="table">
       <thead>
         <tr>
-          <th style="width: 150px;">Product</th>
+          <th>Product</th>
           <th></th>
-          <th class="text-center"
-              style="width: 250px;">Quantity</th>
+          <th class="text-center">Quantity</th>
           <th class="text-right">Price</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of items$ | async">
+        <tr *ngFor="let item of (items$ | async)">
           <td scope="row">
             <a routerLink="/products/{{ item.product._id }}">
-              <div [style.backgroundImage]="'url('+item.product.imageUrl+')'"
-                   class="rounded-circle thumbnail"></div>
+              <div
+                [style.backgroundImage]="'url(' + item.product.imageUrl + ')'"
+                class="rounded-circle thumbnail"
+              ></div>
             </a>
           </td>
           <td>{{ item.product.title }}</td>
           <td>
             <app-quantity-selector [product]="item.product"></app-quantity-selector>
           </td>
-          <td class="text-right">{{ item.product.price | currency:'USD':'symbol' }}</td>
+          <td class="text-right">{{ item.product.price | currency: 'USD':'symbol' }}</td>
         </tr>
       </tbody>
       <tfoot>
-        <th><button (click)="checkOut()"
-                  class="btn btn-primary">Check Out</button></th>
+        <th><button (click)="checkOut()" class="btn btn-primary">Check Out</button></th>
         <th colspan="2"></th>
-        <th class="text-right">Total: <span class="pl-4">{{ totalPrice$ | async |
-            currency:'USD':'symbol' }}</span>
+        <th class="text-right">
+          Total: <span class="pl-4">{{ totalPrice$ | async | currency: 'USD':'symbol' }}</span>
         </th>
       </tfoot>
     </table>
   </div>
 </ng-container>
 <ng-template #elseTemplate>
-  <h1>Shopping Cart</h1>
-  <p>Your shopping cart is empty. </p>
+  <h3>Shopping Cart</h3>
+  <p>Your shopping cart is empty.</p>
 </ng-template>
